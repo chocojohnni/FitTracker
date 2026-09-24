@@ -1,3 +1,5 @@
+/* Dashboard Page Stlying */
+
 .dashboard {
   max-width: 1200px;
   margin: 0 auto;
@@ -73,5 +75,61 @@
   padding: 0.75rem 1rem;
   border: none;
   border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Workouts Page Stlying */
+.workout-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.workout-header {
+  margin-bottom: 2rem;
+}
+
+.workout-header h2 {
+  margin-bottom: 0.5rem;
+}
+
+.exercise-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.exercise-card h3 {
+  margin-top: 0;
+}
+
+.sets-header,
+.set-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr;
+  gap: 1rem;
+  padding: 0.75rem 0;
+}
+
+.sets-header {
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+}
+
+.set-row {
+  border-bottom: 1px solid #ddd;
+}
+
+.exercise-card button {
+  margin-top: 1rem;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+}
+
+.add-exercise-button,
+.finish-workout-button {
+  padding: 0.75rem 1rem;
+  margin-right: 1rem;
   cursor: pointer;
 }
