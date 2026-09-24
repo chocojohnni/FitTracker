@@ -2,7 +2,7 @@ import ExerciseCard from "../components/ExerciseCard";
 
 function Workouts() {
     return (
-        <main classNam="workout-page">
+        <main className="workout-page">
             <section className="workout-header">
                 <h2>Push Day</h2>
                 <p>Chest • Shoulders • Triceps</p>
