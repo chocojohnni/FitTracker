@@ -28,7 +28,19 @@ function Dashboard() {
                 />
             </section>
 
-            <button>Start Workout</button>
+            <section className="today-workout">
+                <h2>Today's Workout</h2>
+
+                <div className="workout-card">
+                    <h3>Push Day</h3>
+                    <p>Chest • Shoulders • Triceps</p>
+
+                    <div>
+                        <span>6 Exercises</span>
+                        <button>Start Workout</button>
+                    </div>
+                </div>
+            </section>
         </main>
     );
 }
