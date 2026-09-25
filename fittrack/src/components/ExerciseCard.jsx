@@ -14,6 +14,14 @@ function ExerciseCard({ name }) {
         ]);
     }
 
+    function updateSet(index, field, value) {
+        const updatedSets = [...sets];
+
+        updatedSets[index][field] = value;
+
+        setSets(updatedSets);
+    }
+
     return (
         <div className="exercise-card">
             <h3>{name}</h3>
@@ -27,8 +35,22 @@ function ExerciseCard({ name }) {
             {sets.map((set, index) => (
                 <div className="set-row" key={index}>
                     <span>{index + 1}</span>
-                    <span>{set.weight} lb</span>
-                    <span>{set.reps}</span>
+                    
+                    <input 
+                        type="number"
+                        value={set.weight}
+                        onChange={(event) =>
+                            updateSet(index, "weight", event.target.value)
+                        }
+                    />
+
+                    <input 
+                        type="number"
+                        value={set.reps}
+                        onChange={(event) => 
+                            updateSet(index, "reps", event.target.value)
+                        }
+                    />
                 </div>
             ))}
 
