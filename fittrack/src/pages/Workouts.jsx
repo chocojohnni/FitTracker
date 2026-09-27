@@ -1,6 +1,20 @@
+import { useState } from "react";
 import ExerciseCard from "../components/ExerciseCard";
 
 function Workouts() {
+    const [exercises, setExercises] = useState([
+        "Bench Press",
+        "Incline Dumbbell Press",
+        "Shoulder Press"
+    ]);
+
+    function addExercise() {
+        setExercises([
+            ...exercises,
+            "New Exercise"
+        ]);
+    }
+
     return (
         <main className="workout-page">
             <section className="workout-header">
@@ -9,14 +23,15 @@ function Workouts() {
             </section>
 
             <section className="exercises">
-                <ExerciseCard name="Bench Press" />
-
-                <ExerciseCard name="Incline Dumbbell Press" />
-
-                <ExerciseCard name="Shoulder Press" />
+                {exercises.map((exercise, index) => (
+                    <ExerciseCard
+                        key = {index}
+                        name = {exercise}
+                    />
+                ))}
             </section>
 
-            <button className="add-exercise-button">
+            <button className="add-exercise-button" onClick={addExercise}>
                 + Add Exercise
             </button>
 
