@@ -54,12 +54,6 @@
   border-radius: 12px;
 }
 
-.workout-card {
-  padding: 1.5rem;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-}
-
 .workout-card h3 {
   margin-top: 0;
 }
@@ -107,9 +101,10 @@
 .sets-header,
 .set-row {
   display: grid;
-  grid-template-columns: 1fr 2fr 3fr;
+  grid-template-columns: 0.5fr 2fr 2fr 1fr;
   gap: 1rem;
   padding: 0.75rem 0;
+  align-items: center;
 }
 
 .sets-header {
@@ -124,6 +119,11 @@
 .exercise-card button {
   margin-top: 1rem;
   padding: 0.6rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: white;
+  color: #1f2937;
+  font: inherit;
   cursor: pointer;
 }
 
@@ -146,4 +146,24 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  border-color: #fca5a5;
+}
+
+.set-row button:hover {
+  background-color: #fef2f2;
+}
+
+.delete-exercise-button {
+  margin-left: 0.75rem;
+  color: #dc2626;
+  border-color: #fca5a5;
+}
+
+.exercise-card button:hover {
+  background-color: #f3f4f6;
+  color: #dc2626;
+}
+
+.exercise-card .delete-exercise-button:hover {
+  background-color: #fef2f2;
 }
