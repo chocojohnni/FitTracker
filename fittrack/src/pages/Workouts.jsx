@@ -4,9 +4,33 @@ import exerciseLibrary from "../data/exercises"
 
 function Workouts() {
     const [exercises, setExercises] = useState([
-        "Bench Press",
-        "Incline Dumbbell Press",
-        "Shoulder Press"
+        {
+            id: 1,
+            name: "Bench Press",
+            sets: [
+                { weight: 185, reps: 8 },
+                { weight: 185, reps: 8 },
+                { weight: 185, reps: 7 }
+            ]
+        },
+        {
+            id: 2,
+            name: "Incline Dumbbell Press",
+            sets: [
+                { weight: 50, reps: 10 },
+                { weight: 50, reps: 9 },
+                { weight: 50, reps: 8 }
+            ]
+        },
+        {
+            id: 3,
+            name: "Shoulder Press",
+            sets: [
+                { weight: 40, reps: 10 },
+                { weight: 40, reps: 9 },
+                { weight: 40, reps: 8 }
+            ]
+        }
     ]);
     
     const [showExerciseLibrary, setShowExerciseLibrary] = useState(false);
@@ -16,6 +40,14 @@ function Workouts() {
     }
 
     function selectExercise(exerciseName) {
+        const newExercise = {
+            id: Date.now(),
+            name: exerciseName,
+            sets: [
+                { weight: 0, reps: 0 }
+            ]
+        };
+
         setExercises([
             ...exercises,
             exerciseName
@@ -24,9 +56,9 @@ function Workouts() {
         setShowExerciseLibrary(false);
     }
 
-    function deleteExercise(index) {
+    function deleteExercise(id) {
         const updatedExercises = exercises.filter(
-            (_, exerciseIndex) => exerciseIndex !== index
+            (exercise) => exercise.id !== id
         );
 
         setExercises(updatedExercises);
@@ -40,11 +72,12 @@ function Workouts() {
             </section>
 
             <section className="exercises">
-                {exercises.map((exercise, index) => (
+                {exercises.map((exercise) => (
                     <ExerciseCard
-                        key={index}
-                        name={exercise}
-                        onDelete={() => deleteExercise(index)}
+                        key={exercise.id}
+                        name={exercise.name}
+                        sets={exercise.sets}
+                        onDelete={() => deleteExercise(exercise.id)}
                     />
                 ))}
             </section>
