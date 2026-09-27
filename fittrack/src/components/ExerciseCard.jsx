@@ -1,33 +1,6 @@
 import { useState } from "react";
 
-function ExerciseCard({ name, onDelete }) {
-    const [sets, setSets] = useState([
-        { weight: 185, reps: 8},
-        { weight: 185, reps: 8},
-        { weight: 185, reps: 7}
-    ]);
-
-    function addSet() {
-        setSets([
-            ...sets,
-            { weight: 0, reps: 0 }
-        ]);
-    }
-
-    function updateSet(index, field, value) {
-        const updatedSets = [...sets];
-
-        updatedSets[index][field] = value;
-
-        setSets(updatedSets);
-    }
-
-    function deleteSet(index) {
-        const updatedSets = sets.filter((_, setIndex) => setIndex !== index);
-
-        setSets(updatedSets);
-    }
-
+function ExerciseCard({ name, sets }) {
     return (
         <div className="exercise-card">
             <h3>{name}</h3>
@@ -45,33 +18,16 @@ function ExerciseCard({ name, onDelete }) {
                     <input 
                         type="number"
                         value={set.weight}
-                        onChange={(event) =>
-                            updateSet(index, "weight", event.target.value)
-                        }
+                        readOnly
                     />
 
                     <input 
                         type="number"
                         value={set.reps}
-                        onChange={(event) => 
-                            updateSet(index, "reps", event.target.value)
-                        }
+                        readOnly
                     />
-
-                    <button onClick={() => deleteSet(index)}>
-                        Delete
-                    </button>
                 </div>
             ))}
-
-            <button onClick={addSet}>+ Add Set</button>
-
-            <button
-                className="delete-exercise-button"
-                onClick={onDelete}
-            >
-                Delete Exercise
-            </button>
         </div>
     );
 }
