@@ -22,6 +22,12 @@ function ExerciseCard({ name }) {
         setSets(updatedSets);
     }
 
+    function deleteSet(index) {
+        const updatedSets = sets.filter((_, setIndex) => setIndex !== index);
+
+        setSets(updatedSets);
+    }
+
     return (
         <div className="exercise-card">
             <h3>{name}</h3>
@@ -51,6 +57,10 @@ function ExerciseCard({ name }) {
                             updateSet(index, "reps", event.target.value)
                         }
                     />
+
+                    <button onClick={() => deleteSet(index)}>
+                        Delete
+                    </button>
                 </div>
             ))}
 
