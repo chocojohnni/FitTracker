@@ -15,6 +15,15 @@ function Workouts() {
         setShowExerciseLibrary(true);
     }
 
+    function selectExercise(exerciseName) {
+        setExercises([
+            ...exercises,
+            exerciseName
+        ]);
+
+        setShowExerciseLibrary(false);
+    }
+
     function deleteExercise(index) {
         const updatedExercises = exercises.filter(
             (_, exerciseIndex) => exerciseIndex !== index
@@ -53,7 +62,10 @@ function Workouts() {
                     <h2>Add Exercise</h2>
 
                     {exerciseLibrary.map((exercise) => (
-                        <button key={exercise.id}>
+                        <button
+                            key={exercise.id}
+                            onClick={() => selectExercise(exercise.name)}
+                        >
                             {exercise.name}
                         </button>
                     ))}
