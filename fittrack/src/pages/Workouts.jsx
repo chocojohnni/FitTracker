@@ -1,7 +1,10 @@
 import { useState } from "react";
 import ExerciseCard from "../components/ExerciseCard";
+import exerciseLibrary from "../data/exercises"
 
 function Workouts() {
+    console.log(exerciseLibrary);
+
     const [exercises, setExercises] = useState([
         "Bench Press",
         "Incline Dumbbell Press",
