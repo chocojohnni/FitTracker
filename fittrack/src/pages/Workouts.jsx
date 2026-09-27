@@ -3,19 +3,16 @@ import ExerciseCard from "../components/ExerciseCard";
 import exerciseLibrary from "../data/exercises"
 
 function Workouts() {
-    console.log(exerciseLibrary);
-
     const [exercises, setExercises] = useState([
         "Bench Press",
         "Incline Dumbbell Press",
         "Shoulder Press"
     ]);
+    
+    const [showExerciseLibrary, setShowExerciseLibrary] = useState(false);
 
     function addExercise() {
-        setExercises([
-            ...exercises,
-            "New Exercise"
-        ]);
+        setShowExerciseLibrary(true);
     }
 
     function deleteExercise(index) {
@@ -50,6 +47,22 @@ function Workouts() {
             <button className="finish-workout-button">
                 Finish Workout
             </button>
+
+            {showExerciseLibrary && (
+                <section className="exercise-library">
+                    <h2>Add Exercise</h2>
+
+                    {exerciseLibrary.map((exercise) => (
+                        <button key={exercise.id}>
+                            {exercise.name}
+                        </button>
+                    ))}
+
+                    <button onClick={() => setShowExerciseLibrary(false)}>
+                        Close
+                    </button>
+                </section>
+            )}
         </main>
     );
 }
