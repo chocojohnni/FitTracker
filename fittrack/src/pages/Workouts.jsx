@@ -15,6 +15,14 @@ function Workouts() {
         ]);
     }
 
+    function deleteExercise(index) {
+        const updatedExercises = exercises.filter(
+            (_, exerciseIndex) => exerciseIndex !== index
+        );
+
+        setExercises(updatedExercises);
+    }
+
     return (
         <main className="workout-page">
             <section className="workout-header">
@@ -25,8 +33,9 @@ function Workouts() {
             <section className="exercises">
                 {exercises.map((exercise, index) => (
                     <ExerciseCard
-                        key = {index}
-                        name = {exercise}
+                        key={index}
+                        name={exercise}
+                        onDelete={() => deleteExercise(index)}
                     />
                 ))}
             </section>
