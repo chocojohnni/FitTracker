@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function ExerciseCard({ name }) {
+function ExerciseCard({ name, onDelete }) {
     const [sets, setSets] = useState([
         { weight: 185, reps: 8},
         { weight: 185, reps: 8},
@@ -31,7 +31,7 @@ function ExerciseCard({ name }) {
     return (
         <div className="exercise-card">
             <h3>{name}</h3>
-
+            
             <div className="sets-header">
                 <span>Set</span>
                 <span>Weight</span>
@@ -65,6 +65,13 @@ function ExerciseCard({ name }) {
             ))}
 
             <button onClick={addSet}>+ Add Set</button>
+
+            <button
+                className="delete-exercise-button"
+                onClick={onDelete}
+            >
+                Delete Exercise
+            </button>
         </div>
     );
 }
