@@ -1,4 +1,6 @@
-/* Dashboard Page Stlying */
+/* =========================
+   Dashboard Page
+   ========================= */
 
 .dashboard {
   max-width: 1200px;
@@ -29,6 +31,7 @@
   padding: 1.5rem;
   border: 1px solid #ddd;
   border-radius: 12px;
+  background-color: white;
 }
 
 .stat-card-title {
@@ -52,6 +55,7 @@
   padding: 1.5rem;
   border: 1px solid #ddd;
   border-radius: 12px;
+  background-color: white;
 }
 
 .workout-card h3 {
@@ -72,7 +76,11 @@
   cursor: pointer;
 }
 
-/* Workouts Page Stlying */
+
+/* =========================
+   Workouts Page
+   ========================= */
+
 .workout-page {
   max-width: 900px;
   margin: 0 auto;
@@ -87,16 +95,36 @@
   margin-bottom: 0.5rem;
 }
 
+.workout-header p {
+  margin: 0;
+}
+
+.exercises {
+  margin-bottom: 1.5rem;
+}
+
+
+/* =========================
+   Exercise Card
+   ========================= */
+
 .exercise-card {
-  border: 1px solid #ddd;
-  border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: white;
 }
 
 .exercise-card h3 {
   margin-top: 0;
+  margin-bottom: 1rem;
 }
+
+
+/* =========================
+   Sets
+   ========================= */
 
 .sets-header,
 .set-row {
@@ -116,6 +144,23 @@
   border-bottom: 1px solid #ddd;
 }
 
+.set-row input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.set-row input:focus {
+  outline: none;
+  border-color: #666;
+}
+
+
+/* =========================
+   Exercise Card Buttons
+   ========================= */
+
 .exercise-card button {
   margin-top: 1rem;
   padding: 0.6rem 1rem;
@@ -127,52 +172,81 @@
   cursor: pointer;
 }
 
-.add-exercise-button,
-.finish-workout-button {
-  padding: 0.75rem 1rem;
-  margin-right: 1rem;
-  cursor: pointer;
+.exercise-card button:hover {
+  background-color: #f3f4f6;
 }
 
-.set-row input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
+
+/* =========================
+   Delete Set Button
+   ========================= */
 
 .set-row button {
+  margin-top: 0;
   padding: 0.5rem;
-  border: none;
+  border: 1px solid #fca5a5;
   border-radius: 6px;
+  background-color: white;
+  color: #dc2626;
   cursor: pointer;
-  border-color: #fca5a5;
 }
 
 .set-row button:hover {
   background-color: #fef2f2;
 }
 
+
+/* =========================
+   Delete Exercise Button
+   ========================= */
+
 .delete-exercise-button {
-  margin-left: 0.75rem;
-  color: #dc2626;
-  border-color: #fca5a5;
+  margin-left: 0.75rem !important;
+  padding: 0.6rem 1rem;
+  border: 1px solid #fca5a5 !important;
+  border-radius: 6px;
+  background-color: white !important;
+  color: #dc2626 !important;
+  cursor: pointer;
 }
 
-.exercise-card button:hover {
+.delete-exercise-button:hover {
+  background-color: #fef2f2 !important;
+}
+
+
+/* =========================
+   Add / Finish Workout Buttons
+   ========================= */
+
+.add-exercise-button,
+.finish-workout-button {
+  padding: 0.75rem 1rem;
+  margin-right: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: white;
+  color: #1f2937;
+  font: inherit;
+  cursor: pointer;
+}
+
+.add-exercise-button:hover,
+.finish-workout-button:hover {
   background-color: #f3f4f6;
-  color: #dc2626;
 }
 
-.exercise-card .delete-exercise-button:hover {
-  background-color: #fef2f2;
-}
+
+/* =========================
+   Exercise Library
+   ========================= */
 
 .exercise-library {
   margin-top: 2rem;
   padding: 1.5rem;
   border: 1px solid #ddd;
   border-radius: 12px;
+  background-color: white;
 }
 
 .exercise-library h2 {
@@ -183,14 +257,50 @@
   display: block;
   width: 100%;
   padding: 0.75rem;
-  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
   border: 1px solid #ddd;
   border-radius: 6px;
   background-color: white;
-  cursor: pointer;
   text-align: left;
+  cursor: pointer;
 }
 
 .exercise-library button:hover {
-  background-color: #f3f4f6;;
+  background-color: #f3f4f6;
+}
+
+
+/* =========================
+   Responsive Design
+   ========================= */
+
+@media (max-width: 700px) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .workout-page,
+  .dashboard {
+    padding: 1rem;
+  }
+
+  .sets-header,
+  .set-row {
+    grid-template-columns: 0.5fr 1.5fr 1.5fr;
+    gap: 0.5rem;
+  }
+
+  .sets-header span:last-child {
+    display: none;
+  }
+
+  .set-row button {
+    grid-column: 1 / -1;
+  }
+
+  .add-exercise-button,
+  .finish-workout-button {
+    width: 100%;
+    margin: 0 0 0.75rem 0;
+  }
 }
