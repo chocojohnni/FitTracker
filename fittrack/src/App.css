@@ -269,6 +269,20 @@
   background-color: #f3f4f6;
 }
 
+.exercise-library input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font:inherit;
+}
+
+.exercise-library input:focus {
+  outline: none;
+  border-color: #666;
+}
+
 
 /* =========================
    Responsive Design
