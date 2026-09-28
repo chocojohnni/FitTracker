@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function ExerciseCard({ name, sets }) {
+function ExerciseCard({ name, sets, onAddSet }) {
     return (
         <div className="exercise-card">
             <h3>{name}</h3>
@@ -28,6 +28,10 @@ function ExerciseCard({ name, sets }) {
                     />
                 </div>
             ))}
+
+            <button onClick={onAddSet}>
+                + Add Set
+            </button>
         </div>
     );
 }
