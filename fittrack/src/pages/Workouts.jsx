@@ -128,6 +128,10 @@ function Workouts() {
         setExercises(updatedExercises);
     }
 
+    const filteredExercises = exerciseLibrary.filter((exercise) =>
+        exercise.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <main className="workout-page">
             <section className="workout-header">
