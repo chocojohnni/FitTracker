@@ -50,7 +50,7 @@ function Workouts() {
 
         setExercises([
             ...exercises,
-            exerciseName
+            newExercise
         ]);
 
         setShowExerciseLibrary(false);
@@ -60,6 +60,24 @@ function Workouts() {
         const updatedExercises = exercises.filter(
             (exercise) => exercise.id !== id
         );
+
+        setExercises(updatedExercises);
+    }
+
+    function addSet(exerciseId) {
+        const updatedExercises = exercises.map((exercise) => {
+            if (exercise.id === exerciseId) {
+                return {
+                    ...exercise,
+                    sets: [
+                        ...exercise.sets,
+                        { weight: 0, reps: 0 }
+                    ]
+                };
+            }
+
+            return exercise;
+        });
 
         setExercises(updatedExercises);
     }
@@ -78,6 +96,7 @@ function Workouts() {
                         name={exercise.name}
                         sets={exercise.sets}
                         onDelete={() => deleteExercise(exercise.id)}
+                        onAddSet={() => addSet(exercise.id)}
                     />
                 ))}
             </section>
