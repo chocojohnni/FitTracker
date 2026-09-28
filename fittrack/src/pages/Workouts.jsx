@@ -108,6 +108,25 @@ function Workouts() {
         setExercises(updatedExercises);
     }
 
+    function deleteSet(exerciseId, setIndex) {
+        const updatedExercises = exercises.map((exercise) => {
+            if (exercise.id === exerciseId) {
+                const updatedSets = exercise.sets.filter(
+                    (set, index) => index !== setIndex
+                );
+
+                return {
+                    ...exercise,
+                    sets: updatedSets
+                };
+            }
+
+            return exercise;
+        });
+
+        setExercises(updatedExercises);
+    }
+
     return (
         <main className="workout-page">
             <section className="workout-header">
@@ -125,6 +144,7 @@ function Workouts() {
                         onDelete={() => deleteExercise(exercise.id)}
                         onAddSet={() => addSet(exercise.id)}
                         onUpdateSet={updateSet}
+                        onDeleteSet={deleteSet}
                     />
                 ))}
             </section>
