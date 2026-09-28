@@ -26,7 +26,7 @@ const exercises = [
     },
     {
         id: 6,
-        name: "Lat Pulldown",
+        name: "Lateral Pulldown",
         muscleGroup: "Back"
     },
     {
