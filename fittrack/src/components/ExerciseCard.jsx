@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function ExerciseCard({ id, name, sets, onAddSet, onUpdateSet }) {
+function ExerciseCard({ id, name, sets, onAddSet, onUpdateSet, onDeleteSet }) {
     return (
         <div className="exercise-card">
             <h3>{name}</h3>
@@ -9,6 +9,7 @@ function ExerciseCard({ id, name, sets, onAddSet, onUpdateSet }) {
                 <span>Set</span>
                 <span>Weight</span>
                 <span>Reps</span>
+                <span>Action</span>
             </div>
 
             {sets.map((set, index) => (
@@ -40,6 +41,10 @@ function ExerciseCard({ id, name, sets, onAddSet, onUpdateSet }) {
                             )
                         }
                     />
+
+                    <button onClick={() => onDeleteSet(id, index)}>
+                        Delete
+                    </button>
                 </div>
             ))}
 
