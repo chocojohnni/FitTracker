@@ -34,6 +34,7 @@ function Workouts() {
     ]);
     
     const [showExerciseLibrary, setShowExerciseLibrary] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
 
     function addExercise() {
         setShowExerciseLibrary(true);
