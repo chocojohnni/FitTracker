@@ -53,7 +53,8 @@ function Workouts() {
             ...exercises,
             newExercise
         ]);
-
+        
+        setSearchTerm("");
         setShowExerciseLibrary(false);
     }
 
@@ -166,7 +167,14 @@ function Workouts() {
                 <section className="exercise-library">
                     <h2>Add Exercise</h2>
 
-                    {exerciseLibrary.map((exercise) => (
+                    <input
+                        type="text"
+                        placeholder="Search exercises..."
+                        value={searchTerm}
+                        onChange={(event) => setSearchTerm(event.target.value)}    
+                    />
+
+                    {filteredExercises.map((exercise) => (
                         <button
                             key={exercise.id}
                             onClick={() => selectExercise(exercise.name)}
@@ -175,7 +183,11 @@ function Workouts() {
                         </button>
                     ))}
 
-                    <button onClick={() => setShowExerciseLibrary(false)}>
+                    <button onClick={() => {
+                        setShowExerciseLibrary(false);
+                        setSearchTerm("");
+                        }}
+                    >
                         Close
                     </button>
                 </section>
