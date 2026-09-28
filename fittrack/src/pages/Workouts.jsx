@@ -44,7 +44,7 @@ function Workouts() {
             id: Date.now(),
             name: exerciseName,
             sets: [
-                { weight: 0, reps: 0 }
+                { weight: "", reps: "" }
             ]
         };
 
@@ -71,8 +71,34 @@ function Workouts() {
                     ...exercise,
                     sets: [
                         ...exercise.sets,
-                        { weight: 0, reps: 0 }
+                        { weight: "", reps: "" }
                     ]
+                };
+            }
+
+            return exercise;
+        });
+
+        setExercises(updatedExercises);
+    }
+
+    function updateSet(exerciseId, setIndex, field, value) {
+        const updatedExercises = exercises.map((exercise) => {
+            if (exercise.id === exerciseId) {
+                const updatedSets = exercise.sets.map((set, index) => {
+                    if (index === setIndex) {
+                        return {
+                            ...set,
+                            [field]: value
+                        };
+                    }
+
+                    return set;
+                });
+
+                return {
+                    ...exercise,
+                    sets: updatedSets
                 };
             }
 
@@ -93,10 +119,12 @@ function Workouts() {
                 {exercises.map((exercise) => (
                     <ExerciseCard
                         key={exercise.id}
+                        id={exercise.id}
                         name={exercise.name}
                         sets={exercise.sets}
                         onDelete={() => deleteExercise(exercise.id)}
                         onAddSet={() => addSet(exercise.id)}
+                        onUpdateSet={updateSet}
                     />
                 ))}
             </section>
