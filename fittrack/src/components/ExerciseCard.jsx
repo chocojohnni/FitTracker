@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function ExerciseCard({ name, sets, onAddSet }) {
+function ExerciseCard({ id, name, sets, onAddSet, onUpdateSet }) {
     return (
         <div className="exercise-card">
             <h3>{name}</h3>
@@ -18,13 +18,27 @@ function ExerciseCard({ name, sets, onAddSet }) {
                     <input 
                         type="number"
                         value={set.weight}
-                        readOnly
+                        onChange={(event) =>
+                            onUpdateSet(
+                                id,
+                                index,
+                                "weight",
+                                event.target.value
+                            )
+                        }
                     />
 
                     <input 
                         type="number"
                         value={set.reps}
-                        readOnly
+                        onChange={(event) =>
+                            onUpdateSet(
+                                id,
+                                index,
+                                "reps",
+                                event.target.value
+                            )
+                        }
                     />
                 </div>
             ))}
