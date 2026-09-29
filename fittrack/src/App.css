@@ -283,6 +283,20 @@
   border-color: #666;
 }
 
+.muscle-filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.muscle-filters button {
+  width: auto;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  text-align: center;
+}
+
 
 /* =========================
    Responsive Design
