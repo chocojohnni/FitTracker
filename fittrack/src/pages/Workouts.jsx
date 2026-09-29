@@ -57,6 +57,7 @@ function Workouts() {
         
         setSearchTerm("");
         setShowExerciseLibrary(false);
+        setSelectedMuscleGroup("All");
     }
 
     function deleteExercise(id) {
@@ -183,6 +184,32 @@ function Workouts() {
                         onChange={(event) => setSearchTerm(event.target.value)}    
                     />
 
+                    <div className="muscle-filters">
+                        <button
+                            onClick={() => setSelectedMuscleGroup("All")}
+                        >
+                            All
+                        </button>
+
+                        <button
+                            onClick={() => setSelectedMuscleGroup("Chest")}
+                        >
+                            Chest
+                        </button>
+
+                        <button
+                            onClick={() => setSelectedMuscleGroup("Shoulders")}
+                        >
+                            Shoulders
+                        </button>
+
+                        <button
+                            onClick={() => setSelectedMuscleGroup("Back")}
+                        >
+                            Back
+                        </button>
+                    </div>
+
                     {filteredExercises.map((exercise) => (
                         <button
                             key={exercise.id}
@@ -195,6 +222,7 @@ function Workouts() {
                     <button onClick={() => {
                         setShowExerciseLibrary(false);
                         setSearchTerm("");
+                        setSelectedMuscleGroup("All");
                         }}
                     >
                         Close
