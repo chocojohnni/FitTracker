@@ -35,6 +35,7 @@ function Workouts() {
     
     const [showExerciseLibrary, setShowExerciseLibrary] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
+    const [selectedMuscleGroup, setSelectedMuscleGroup] = useState("All");
 
     function addExercise() {
         setShowExerciseLibrary(true);
@@ -129,9 +130,17 @@ function Workouts() {
         setExercises(updatedExercises);
     }
 
-    const filteredExercises = exerciseLibrary.filter((exercise) =>
-        exercise.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredExercises = exerciseLibrary.filter((exercise) => {
+        const matchesSearch = exercise.name
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase());
+        
+        const matchesMuscleGroup =
+            selectedMuscleGroup === "All" ||
+            exercise.muscleGroup === selectedMuscleGroup;
+
+        return matchesSearch && matchesMuscleGroup;
+    });
 
     return (
         <main className="workout-page">
