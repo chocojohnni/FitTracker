@@ -1,13 +1,17 @@
+import { Link } from "react-router-dom";
+
 function Navbar() {
     return (
         <nav>
             <h1>FitTrack</h1>
 
             <div>
-                <a href="/">Dashboard</a>
-                <a href="/workouts">Workouts</a>
-                <a href="/exercises">Exercises</a>
-                <a href="/progress">Progress</a>
+                <Link to="/">Dashboard</Link>
+                <Link to="/workouts">Workouts</Link>
+                <Link to="/exercises">Exercises</Link>
+                <Link to="/progress">Progress</Link>
+                <Link to="/history">History</Link>
+                <Link to="/profile">Profile</Link>
             </div>
         </nav>
     );
