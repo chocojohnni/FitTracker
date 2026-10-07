@@ -1,8 +1,11 @@
 import { useState } from "react";
 import ExerciseCard from "../components/ExerciseCard";
-import exerciseLibrary from "../data/exercises"
+import exerciseLibrary from "../data/exercises";
+import { useWorkout } from "../WorkoutContext.jsx";
 
 function Workouts() {
+    const { workoutHistory, setWorkoutHistory } = useWorkout();
+
     const [exercises, setExercises] = useState([
         {
             id: 1,
@@ -36,7 +39,6 @@ function Workouts() {
     const [showExerciseLibrary, setShowExerciseLibrary] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedMuscleGroup, setSelectedMuscleGroup] = useState("All");
-    const [workoutHistory, setWorkoutHistory] = useState([]);
     const [workoutCompleted, setWorkoutCompleted] = useState(false);
 
     function addExercise() {
