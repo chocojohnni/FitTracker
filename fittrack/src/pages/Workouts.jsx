@@ -36,6 +36,8 @@ function Workouts() {
     const [showExerciseLibrary, setShowExerciseLibrary] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedMuscleGroup, setSelectedMuscleGroup] = useState("All");
+    const [workoutHistory, setWorkoutHistory] = useState([]);
+    const [workoutCompleted, setWorkoutCompleted] = useState(false);
 
     function addExercise() {
         setShowExerciseLibrary(true);
@@ -131,6 +133,22 @@ function Workouts() {
         setExercises(updatedExercises);
     }
 
+    function finishWorkout() {
+        const completedWorkout = {
+            id: Date.now(),
+            name: "Push Day",
+            date: new Date().toLocaleDateString(),
+            exercises: exercises
+        };
+
+        setWorkoutHistory([
+            ...workoutHistory,
+            completedWorkout
+        ]);
+
+        setWorkoutCompleted(true);
+    }
+
     const filteredExercises = exerciseLibrary.filter((exercise) => {
         const matchesSearch = exercise.name
             .toLowerCase()
@@ -169,9 +187,15 @@ function Workouts() {
                 + Add Exercise
             </button>
 
-            <button className="finish-workout-button">
+            <button className="finish-workout-button" onClick={finishWorkout}>
                 Finish Workout
             </button>
+
+            {workoutCompleted && (
+                <p className="workout-completed-message">
+                    Workout completed!
+                </p>
+            )}
 
             {showExerciseLibrary && (
                 <section className="exercise-library">
