@@ -236,6 +236,11 @@
   background-color: #f3f4f6;
 }
 
+.workout-completed-message {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
 
 /* =========================
    Exercise Library
