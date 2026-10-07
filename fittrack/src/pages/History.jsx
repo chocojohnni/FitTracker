@@ -2,7 +2,7 @@ import { useWorkout } from "../WorkoutContext.jsx";
 
 function History() {
     const { workoutHistory } = useWorkout();
-    
+
     return (
         <div className="workout-page">
             <div className="workout-header">
@@ -19,9 +19,33 @@ function History() {
 
                         <p>{workout.date}</p>
 
-                        <p>
-                            Exercises: {workout.exercises.length}
-                        </p>
+                        {workout.exercises.map((exercise) => (
+                            <div
+                                className="history-exercise"
+                                key={exercise.id}
+                            >
+                                <h4>{exercise.name}</h4>
+
+                                <div className="history-sets">
+                                    <div className="history-set-header">
+                                        <span>Set</span>
+                                        <span>Weight</span>
+                                        <span>Reps</span>
+                                    </div>
+
+                                    {exercise.sets.map((set, index) => (
+                                        <div
+                                            className="history-set-row"
+                                            key={index}
+                                        >
+                                            <span>{index + 1}</span>
+                                            <span>{set.weight}</span>
+                                            <span>{set.reps}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 ))
             )}
