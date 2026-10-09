@@ -1,7 +1,19 @@
+
+import { useState } from "react";
 import { useWorkout } from "../WorkoutContext.jsx";
 
 function History() {
     const { workoutHistory } = useWorkout();
+
+    const [expandedWorkout, setExpandedWorkout] = useState(null);
+
+    function toggleWorkout(workoutId) {
+        if (expandedWorkout === workoutId) {
+            setExpandedWorkout(null);
+        } else {
+            setExpandedWorkout(workoutId);
+        }
+    }
 
     return (
         <div className="workout-page">
@@ -15,37 +27,58 @@ function History() {
             ) : (
                 workoutHistory.map((workout) => (
                     <div className="workout-card" key={workout.id}>
-                        <h3>{workout.name}</h3>
+                        <button
+                            className="history-workout-header"
+                            onClick={() => toggleWorkout(workout.id)}
+                        >
+                            <div>
+                                <h3>{workout.name}</h3>
 
-                        <p>{workout.date}</p>
+                                <p>{workout.date}</p>
 
-                        {workout.exercises.map((exercise) => (
-                            <div
-                                className="history-exercise"
-                                key={exercise.id}
-                            >
-                                <h4>{exercise.name}</h4>
-
-                                <div className="history-sets">
-                                    <div className="history-set-header">
-                                        <span>Set</span>
-                                        <span>Weight</span>
-                                        <span>Reps</span>
-                                    </div>
-
-                                    {exercise.sets.map((set, index) => (
-                                        <div
-                                            className="history-set-row"
-                                            key={index}
-                                        >
-                                            <span>{index + 1}</span>
-                                            <span>{set.weight}</span>
-                                            <span>{set.reps}</span>
-                                        </div>
-                                    ))}
-                                </div>
+                                <p>
+                                    {workout.exercises.length} exercises
+                                </p>
                             </div>
-                        ))}
+
+                            <span>
+                                {expandedWorkout === workout.id
+                                    ? "▲"
+                                    : "▼"}
+                            </span>
+                        </button>
+
+                        {expandedWorkout === workout.id && (
+                            <div className="history-workout-details">
+                                {workout.exercises.map((exercise) => (
+                                    <div
+                                        className="history-exercise"
+                                        key={exercise.id}
+                                    >
+                                        <h4>{exercise.name}</h4>
+
+                                        <div className="history-sets">
+                                            <div className="history-set-header">
+                                                <span>Set</span>
+                                                <span>Weight</span>
+                                                <span>Reps</span>
+                                            </div>
+
+                                            {exercise.sets.map((set, index) => (
+                                                <div
+                                                    className="history-set-row"
+                                                    key={index}
+                                                >
+                                                    <span>{index + 1}</span>
+                                                    <span>{set.weight}</span>
+                                                    <span>{set.reps}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 ))
             )}
