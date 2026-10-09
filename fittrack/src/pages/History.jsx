@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useWorkout } from "../WorkoutContext.jsx";
 
 function History() {
-    const { workoutHistory } = useWorkout();
+    const { workoutHistory, setWorkoutHistory } = useWorkout();
 
     const [expandedWorkout, setExpandedWorkout] = useState(null);
 
@@ -12,6 +12,18 @@ function History() {
             setExpandedWorkout(null);
         } else {
             setExpandedWorkout(workoutId);
+        }
+    }
+
+    function deleteWorkout(workoutId) {
+        const updatedHistory = workoutHistory.filter(
+            (workout) => workout.id !== workoutId
+        );
+
+        setWorkoutHistory(updatedHistory);
+
+        if (expandedWorkout === workoutId) {
+            setExpandedWorkout(null);
         }
     }
 
@@ -33,9 +45,7 @@ function History() {
                         >
                             <div>
                                 <h3>{workout.name}</h3>
-
                                 <p>{workout.date}</p>
-
                                 <p>
                                     {workout.exercises.length} exercises
                                 </p>
@@ -77,6 +87,13 @@ function History() {
                                         </div>
                                     </div>
                                 ))}
+
+                                <button
+                                    className="delete-workout-button"
+                                    onClick={() => deleteWorkout(workout.id)}
+                                >
+                                    Delete Workout
+                                </button>
                             </div>
                         )}
                     </div>
