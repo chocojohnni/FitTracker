@@ -454,3 +454,52 @@
    .delete-workout-button:hover {
     background-color: #fef2f2;
    }
+
+   /* =========================
+   Personal Records
+   ========================= */
+
+   .personal-records {
+    margin-top: 2.5rem;
+   }
+
+   .personal-records > h2 {
+    margin-bottom: 0.5rem;
+   }
+
+   .personal-records > p {
+    color: #6b7280;
+    margin-bottom: 1.25rem;
+   }
+
+   .pr-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+   }
+
+   .pr-card h3 {
+    margin: 0 0 0.25rem;
+   }
+
+   .pr-card p {
+    margin: 0;
+    color: #6b7280;
+   }
+
+   .pr-card strong {
+    font-size: 1.25rem;
+    white-space: nowrap;
+   }
+
+   @media (max-width: 480px) {
+    .pr-card {
+      padding: 1rem;
+    }
+
+    .pr-card strong {
+      font-size: 1rem;
+    }
+   }
