@@ -14,37 +14,52 @@
 
 .dashboard-header h2 {
   margin-bottom: 0.5rem;
+  font-size: 1.75rem;
 }
 
 .dashboard-header p {
   margin: 0;
+  color: #6b7280;
 }
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
   margin-bottom: 2rem;
 }
 
 .stat-card {
   padding: 1.5rem;
-  border: 1px solid #ddd;
+  border: 1px solid #e5e7eb;
   border-radius: 12px;
-  background-color: white;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 4%);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.stat-card:hover {
+  box-shadow: 0 4px 12px rgb(0 0 0 / 7%);
+  transform: translate(-2px);
 }
 
 .stat-card-title {
   margin: 0;
+  color: #6b7280;
+  font-size: 0.95rem;
 }
 
 .stat-card h3 {
+  margin: 0.75rem 0;
   font-size: 2rem;
-  margin: 0.5rem 0;
+  font-weight: 700;
+  color: #1f2937;
 }
 
 .stat-card-description {
   margin: 0;
+  color: #6b7280;
+  font-size: 0.875rem;
 }
 
 .today-workout {
@@ -305,8 +320,17 @@
    ========================= */
 
 @media (max-width: 700px) {
+  .dashboard {
+    padding: 1rem;
+  }
+
   .stats {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .stat-card {
+    padding: 1.25rem;
   }
 
   .workout-page,
