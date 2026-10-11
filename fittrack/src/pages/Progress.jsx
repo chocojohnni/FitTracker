@@ -1,8 +1,11 @@
-import { useWorkout } from "../WorkoutContext.jsx"
+import { useState } from "react";
+import { useWorkout } from "../WorkoutContext.jsx";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 function Progress() {
     const { workoutHistory } = useWorkout();
+
+    const [selectedExercise, setSelectedExercise] = useState("");
 
     let totalExercises = 0;
     let totalSets = 0;
@@ -66,6 +69,47 @@ function Progress() {
             id: workout.id
         };
     });
+
+    const exerciseProgress = {};
+
+    workoutHistory.forEach((workout) => {
+        workout.exercises.forEach((exercise) => {
+            let heaviestWeight = 0;
+
+            exercise.sets.forEach((set) => {
+                const weight = Number(set.weight);
+
+                if (
+                    set.weight !== "" && Number.isFinite(weight) && weight > heaviestWeight
+                ) {
+                    heaviestWeight = weight;
+                }
+            });
+
+            if (heaviestWeight > 0) {
+                if (!exerciseProgress[exercise.name]) {
+                    exerciseProgress[exercise.name] = [];
+                }
+
+                exerciseProgress[exercise.name].push({
+                    date: workout.date,
+                    weight: heaviestWeight,
+                    workoutId: workout.id
+                });
+            }
+        });
+    });
+
+    const exerciseNames = Object.keys(exerciseProgress);
+
+
+    const activeExercise = exerciseNames.includes(selectedExercise)
+        ? selectedExercise
+        : exerciseNames[0] || "";
+
+    const selectedExerciseHistory = activeExercise
+        ? exerciseProgress[activeExercise]
+        : [];
 
     return (
         <main className="dashboard">
@@ -145,6 +189,62 @@ function Progress() {
                             </LineChart>
                         </ResponsiveContainer>
                     </div>
+                )}
+            </section>
+
+            <section className="progress-chart">
+                <h2>Exercise Progress</h2>
+                <p>Track the heaviest weight you've logged for an exercise.</p>
+
+                {exerciseNames.length === 0 ? (
+                    <p>
+                        Complete a workout with recorded weights to track
+                        exercise progress.
+                    </p>
+                ) : (
+                    <>
+                        <label htmlFor="exercise-progress-select">
+                            Select exercise
+                        </label>
+
+                        <select
+                            id="exercise-progress-select"
+                            value={activeExercise}
+                            onChange={(event) => setSelectedExercise(event.target.value)}
+                        >
+                            {exerciseNames.map((name) => (
+                                <option key={name} value={name}>
+                                    {name}
+                                </option>
+                            ))}
+                        </select>
+
+                        <div className="chart-container">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <LineChart data={selectedExerciseHistory}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="date" />
+                                    <YAxis
+                                        width={70}
+                                        tick={{ fontSize: 12 }}
+                                    />
+                                    <Tooltip
+                                        formatter={(value) => [
+                                            `${Number(value).toLocaleString()} lbs`,
+                                            "Heaviest Weight"
+                                        ]}
+                                    />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="weight"
+                                        stroke="#2563eb"
+                                        strokeWidth={3}
+                                        dot={{ r: 4 }}
+                                    />
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </div>
+                    </>
                 )}
             </section>
 
