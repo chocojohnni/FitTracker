@@ -1,4 +1,5 @@
 import { useWorkout } from "../WorkoutContext.jsx"
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 function Progress() {
     const { workoutHistory } = useWorkout();
@@ -39,6 +40,31 @@ function Progress() {
                 }
             });
         });
+    });
+
+    const volumeHistory = workoutHistory.map((workout) => {
+        let workoutVolume = 0;
+
+        workout.exercises.forEach((exercise) => {
+            exercise.sets.forEach((set) => {
+                const weight = Number(set.weight);
+                const reps = Number(set.reps);
+
+                if (
+                    set.weight !== "" && set.reps !== "" &&
+                    Number.isFinite(weight) && Number.isFinite(reps) &&
+                    weight >= 0 && reps >= 0
+                ) {
+                    workoutVolume += weight * reps;
+                }
+            });
+        });
+
+        return {
+            name: workout.date,
+            volume: workoutVolume,
+            id: workout.id
+        };
     });
 
     return (
@@ -82,13 +108,53 @@ function Progress() {
                 </div>
             </section>
 
+
+            <section className="progress-chart">
+                <h2>Training Volume Over Time</h2>
+                <p>See how much weight you lift across completed workouts.</p>
+
+                {volumeHistory.length === 0 ? (
+                    <p>Complete a workout to start tracking your progress.</p>
+                ) : (
+                    <div className="chart-container">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <LineChart data={volumeHistory}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis
+                                    dataKey="name"
+                                    tick={{ fontSize: 12 }}
+                                />
+                                <YAxis
+                                    width={70}
+                                    tick={{ fontSize: 12 }}
+                                />
+                                <Tooltip
+                                    formatter={(value) => [
+                                        `${Number(value).toLocaleString()} lbs`,
+                                        "Training Volume"
+                                    ]}
+                                />
+                                <Line
+                                    type="monotone"
+                                    dataKey="volume"
+                                    stroke="#2563eb"
+                                    strokeWidth={3}
+                                    dot={{ r: 4 }}
+                                    activeDot={{ r: 6 }}
+                                />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </div>
+                )}
+            </section>
+
             <section className="personal-records">
                 <h2>Personal Records</h2>
                 <p>Heaviest weight recorded for each exercise.</p>
 
                 {Object.keys(personalRecords).length === 0 ? (
                     <p>
-                        No personal records yet. Complete a workout 
+                        No personal records yet. Complete a workout
                         with valid weight entries to get started
                     </p>
                 ) : (
