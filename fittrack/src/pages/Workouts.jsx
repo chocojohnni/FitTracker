@@ -40,6 +40,7 @@ function Workouts() {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedMuscleGroup, setSelectedMuscleGroup] = useState("All");
     const [workoutCompleted, setWorkoutCompleted] = useState(false);
+    const [workoutName, setWorkoutName] = useState("Push Day");
 
     function addExercise() {
         setShowExerciseLibrary(true);
@@ -138,7 +139,7 @@ function Workouts() {
     function finishWorkout() {
         const completedWorkout = {
             id: Date.now(),
-            name: "Push Day",
+            name: workoutName.trim() || "Untitled Workout",
             date: new Date().toLocaleDateString(),
             exercises: exercises
         };
@@ -166,8 +167,14 @@ function Workouts() {
     return (
         <main className="workout-page">
             <section className="workout-header">
-                <h2>Push Day</h2>
-                <p>Chest • Shoulders • Triceps</p>
+                <h2>{workoutName}</h2>
+                
+                <input type="text" value={workoutName}
+                    onChange={(event) => setWorkoutName(event.target.value)} 
+                    placeholder="Enter workout name"
+                />
+
+                <p>Customize your workout routine.</p>
             </section>
 
             <section className="exercises">
