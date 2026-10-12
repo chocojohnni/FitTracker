@@ -18,6 +18,21 @@ function WorkoutProvider({ children }) {
         }
     });
 
+    const [savedWorkouts, setSavedWorkouts] = useState(() => {
+        const savedRoutines = localStorage.getItem("savedWorkouts");
+
+        if (!savedRoutines) {
+            return [];
+        }
+
+        try {
+            return JSON.parse(savedRoutines);
+        } catch (error) {
+            console.error("Could not load saved routines:", error);
+            return [];
+        }
+    });
+
     useEffect(() => {
         localStorage.setItem(
             "workoutHistory",
@@ -25,11 +40,20 @@ function WorkoutProvider({ children }) {
         );
     }, [workoutHistory]);
 
+    useEffect(() => {
+        localStorage.setItem(
+            "savedWorkouts",
+            JSON.stringify(savedWorkouts)
+        );
+    }, [savedWorkouts]);
+
     return (
         <WorkoutContext.Provider
             value={{
                 workoutHistory,
-                setWorkoutHistory
+                setWorkoutHistory,
+                savedWorkouts,
+                setSavedWorkouts
             }}
         >
             {children}
