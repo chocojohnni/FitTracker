@@ -4,7 +4,8 @@ import exerciseLibrary from "../data/exercises";
 import { useWorkout } from "../WorkoutContext.jsx";
 
 function Workouts() {
-    const { workoutHistory, setWorkoutHistory } = useWorkout();
+    const { workoutHistory, setWorkoutHistory,
+        savedWorkouts, setSavedWorkouts} = useWorkout();
 
     const [exercises, setExercises] = useState([
         {
@@ -41,6 +42,7 @@ function Workouts() {
     const [selectedMuscleGroup, setSelectedMuscleGroup] = useState("All");
     const [workoutCompleted, setWorkoutCompleted] = useState(false);
     const [workoutName, setWorkoutName] = useState("Push Day");
+    const [newRoutineName, setNewRoutineName] = useState("");
 
     function addExercise() {
         setShowExerciseLibrary(true);
@@ -152,6 +154,23 @@ function Workouts() {
         setWorkoutCompleted(true);
     }
 
+    function saveRoutine() {
+        const trimmedName = newRoutineName.trim();
+
+        if(!trimmedName) {
+            return;
+        }
+
+        const newRoutine = {
+            id: Date.now(),
+            name: trimmedName,
+            exercises: []
+        };
+
+        setSavedWorkouts([...savedWorkouts, newRoutine]);
+        setNewRoutineName("");
+    }
+
     const filteredExercises = exerciseLibrary.filter((exercise) => {
         const matchesSearch = exercise.name
             .toLowerCase()
@@ -166,6 +185,36 @@ function Workouts() {
 
     return (
         <main className="workout-page">
+            <section className="saved-routines">
+                <h2>My Workout Routines</h2>
+                <p>Create routines you can reuse for future workouts.</p>
+
+                <form
+                    onSubmit={(event) => {
+                        event.preventDefault();
+                        saveRoutine();
+                    }}
+                    className="routine-form"
+                >
+                    <input type="text" value={newRoutineName} onChange={(event) => setNewRoutineName(event.target.value)}
+                        placeholder="e.g. Push Day" aria-label="New routine name" />
+
+                    <button type="submit">Create Routine</button>
+                </form>
+
+                {savedWorkouts.length === 0 ? (
+                    <p>You haven't created any routines yet.</p>
+                ) : (
+                    <div className="routine-list">
+                        {savedWorkouts.map((routine) => (
+                            <div className="workout-card" key={routine.id}>
+                                <h3>{routine.name}</h3>
+                                <p>{routine.exercises.length} exercises</p>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </section>
             <section className="workout-header">
                 <h2>{workoutName}</h2>
                 
