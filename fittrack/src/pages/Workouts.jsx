@@ -7,36 +7,7 @@ function Workouts() {
     const { workoutHistory, setWorkoutHistory,
         savedWorkouts, setSavedWorkouts} = useWorkout();
 
-    const [exercises, setExercises] = useState([
-        {
-            id: 1,
-            name: "Bench Press",
-            sets: [
-                { weight: 185, reps: 8 },
-                { weight: 185, reps: 8 },
-                { weight: 185, reps: 7 }
-            ]
-        },
-        {
-            id: 2,
-            name: "Incline Dumbbell Press",
-            sets: [
-                { weight: 50, reps: 10 },
-                { weight: 50, reps: 9 },
-                { weight: 50, reps: 8 }
-            ]
-        },
-        {
-            id: 3,
-            name: "Shoulder Press",
-            sets: [
-                { weight: 40, reps: 10 },
-                { weight: 40, reps: 9 },
-                { weight: 40, reps: 8 }
-            ]
-        }
-    ]);
-    
+    const [exercises, setExercises] = useState([]);
     const [showExerciseLibrary, setShowExerciseLibrary] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedMuscleGroup, setSelectedMuscleGroup] = useState("All");
