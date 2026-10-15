@@ -5,7 +5,7 @@ import { useWorkout } from "../WorkoutContext.jsx";
 
 function Workouts() {
     const { workoutHistory, setWorkoutHistory,
-        savedWorkouts, setSavedWorkouts} = useWorkout();
+        savedWorkouts, setSavedWorkouts } = useWorkout();
 
     const [exercises, setExercises] = useState([]);
     const [showExerciseLibrary, setShowExerciseLibrary] = useState(false);
@@ -140,7 +140,7 @@ function Workouts() {
     function saveRoutine() {
         const trimmedName = newRoutineName.trim();
 
-        if(!trimmedName) {
+        if (!trimmedName) {
             return;
         }
 
@@ -154,11 +154,27 @@ function Workouts() {
         setNewRoutineName("");
     }
 
+    function deleteRoutine(routineId) {
+        const confirmed = window.confirm(
+            'Are you sure you want to delete this routine?'
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        const updatedRoutines = savedWorkouts.filter(
+            (savedRoutine) => savedRoutine.id !== routineId
+        );
+
+        setSavedWorkouts(updatedRoutines);
+    }
+
     const filteredExercises = exerciseLibrary.filter((exercise) => {
         const matchesSearch = exercise.name
             .toLowerCase()
             .includes(searchTerm.toLowerCase());
-        
+
         const matchesMuscleGroup =
             selectedMuscleGroup === "All" ||
             exercise.muscleGroup === selectedMuscleGroup;
@@ -201,7 +217,7 @@ function Workouts() {
                                             <li key={exercise.id}>
                                                 <span>{exercise.name}</span>
 
-                                                <button 
+                                                <button
                                                     type="button"
                                                     onClick={() => {
                                                         const updatedRoutines = savedWorkouts.map((savedRoutine) => {
@@ -229,45 +245,84 @@ function Workouts() {
                                     <p>No exercises added yet.</p>
                                 )}
 
-                                <button type="button" onClick={() => {
-                                    setSelectedRoutineId(routine.id);
-                                    setShowExerciseLibrary(true);
-                                }}>
-                                    + Add Exercises
-                                </button>
+                                <div className="routine-actions">
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            if (routine.exercises.length === 0) {
+                                                alert("Add at least one exercise to this routine first.");
+                                                return;
+                                            }
 
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        if (routine.exercises.length === 0) {
-                                            alert("Add at least one exercise to this routine first.");
-                                            return;
-                                        }
+                                            const confirmed = window.confirm(
+                                                "Starting this routine will replace your current workout. Continue?"
+                                            );
 
-                                        const confirmed = window.confirm(
-                                            "Starting this routine will replace your current workout. Continue?"
-                                        );
+                                            if (!confirmed) {
+                                                return;
+                                            }
 
-                                        if (!confirmed) {
-                                            return;
-                                        }
+                                            setExercises(
+                                                routine.exercises.map((exercise) => ({
+                                                    ...exercise,
+                                                    id: Date.now() + Math.random(),
+                                                    sets: [{ weight: "", reps: "" }]
+                                                }))
+                                            );
 
-                                        setExercises(
-                                            routine.exercises.map((exercise) => ({
-                                                ...exercise,
-                                                id: Date.now() + Math.random(),
-                                                sets: [{ weight: "", reps: "" }]
-                                            }))
-                                        );
+                                            setWorkoutName(routine.name);
+                                            setWorkoutCompleted(false);
+                                            setSelectedRoutineId(null);
+                                            setShowExerciseLibrary(false);
+                                        }}
+                                    >
+                                        Start Workout
+                                    </button>
 
-                                        setWorkoutName(routine.name);
-                                        setWorkoutCompleted(false);
-                                        setSelectedRoutineId(null);
-                                        setShowExerciseLibrary(false);
-                                    }}
-                                >
-                                    Start Workout
-                                </button>
+                                    <button type="button" onClick={() => {
+                                        setSelectedRoutineId(routine.id);
+                                        setShowExerciseLibrary(true);
+                                    }}>
+                                        + Add Exercises
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            const newName = window.prompt(
+                                                "Enter a new name for this routine:",
+                                                routine.name
+                                            );
+
+                                            if (newName === null || newName.trim() === "") {
+                                                return;
+                                            }
+
+                                            const updatedRoutines = savedWorkouts.map((savedRoutine) => {
+                                                if (savedRoutine.id === routine.id) {
+                                                    return {
+                                                        ...savedRoutine,
+                                                        name: newName.trim()
+                                                    };
+                                                }
+
+                                                return savedRoutine;
+                                            });
+
+                                            setSavedWorkouts(updatedRoutines);
+                                        }}
+                                    >
+                                        Rename
+                                    </button>
+
+                                    <button
+                                        className="delete-routine-button"
+                                        type="button"
+                                        onClick={() => deleteRoutine(routine.id)}
+                                    >
+                                        Delete Routine
+                                    </button>
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -275,9 +330,9 @@ function Workouts() {
             </section>
             <section className="workout-header">
                 <h2>{workoutName}</h2>
-                
+
                 <input type="text" value={workoutName}
-                    onChange={(event) => setWorkoutName(event.target.value)} 
+                    onChange={(event) => setWorkoutName(event.target.value)}
                     placeholder="Enter workout name"
                 />
 
@@ -321,7 +376,7 @@ function Workouts() {
                         type="text"
                         placeholder="Search exercises..."
                         value={searchTerm}
-                        onChange={(event) => setSearchTerm(event.target.value)}    
+                        onChange={(event) => setSearchTerm(event.target.value)}
                     />
 
                     <div className="muscle-filters">
@@ -363,7 +418,7 @@ function Workouts() {
                         setShowExerciseLibrary(false);
                         setSearchTerm("");
                         setSelectedMuscleGroup("All");
-                        }}
+                    }}
                     >
                         Close
                     </button>
