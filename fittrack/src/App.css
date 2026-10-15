@@ -542,53 +542,213 @@
   }
 }
 
+
 /* =========================
-   Saved Routines
+   Saved Workout Routines
    ========================= */
 
 .saved-routines {
-  margin-bottom: 2rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
 }
 
 .saved-routines h2 {
-  margin-bottom: 0.5rem;
+    margin: 0 0 0.5rem;
+    color: #111827;
+    font-size: 1.5rem;
 }
 
 .saved-routines > p {
-  color: #6b7280;
+    margin: 0 0 1.25rem;
+    color: #6b7280;
+    line-height: 1.5;
 }
 
+/* Create routine form */
 .routine-form {
-  display: flex;
-  gap: 0.75rem;
-  margin: 1rem 0;
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
 }
 
 .routine-form input {
-  flex: 1;
-  min-width: 0;
-  padding: 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
+    flex: 1;
+    min-width: 0;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font: inherit;
 }
 
-.routine-form button {
-  padding: 0.75rem 1rem;
-  border: none;
-  border-radius: 8px;
-  background-color: #2563eb;
-  color: white;
-  cursor: pointer;
+.routine-form input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
+/* Routine cards */
 .routine-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
 }
 
-@media (max-width: 480px) {
-  .routine-form {
+.routine-list .workout-card {
+    display: flex;
     flex-direction: column;
-  }
+    align-items: flex-start;
+    gap: 0.75rem;
+    min-width: 0;
+    padding: 1.25rem;
+    margin: 0;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: none;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.routine-list .workout-card:hover {
+    border-color: #bfdbfe;
+    box-shadow: 0 5px 14px rgba(15, 23, 42, 0.06);
+    transform: translateY(-2px);
+}
+
+.routine-list .workout-card > div {
+    margin-top: 0;
+}
+
+.routine-list .workout-card h3 {
+    margin: 0;
+    color: #111827;
+    font-size: 1.1rem;
+    overflow-wrap: anywhere;
+}
+
+.routine-list .workout-card p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Exercises inside a routine */
+.routine-exercise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.routine-exercise-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 0.75rem;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    color: #374151;
+    font-size: 0.9rem;
+}
+
+.routine-exercise-list li span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* Standard buttons: match the rest of FitTrack */
+.routine-form button,
+.routine-list .workout-card button {
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background-color: white;
+    color: #1f2937;
+    font: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.routine-form button:hover,
+.routine-list .workout-card button:hover {
+    background-color: #f3f4f6;
+}
+
+.routine-form button:focus-visible,
+.routine-list .workout-card button:focus-visible {
+    outline: 2px solid #1f2937;
+    outline-offset: 2px;
+}
+
+/* Destructive buttons: Delete Routine and Remove Exercise */
+.routine-list .workout-card .delete-routine-button,
+.routine-list .workout-card .routine-exercise-list li button {
+    flex-shrink: 0;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #fca5a5;
+    border-radius: 6px;
+    background-color: white;
+    color: #dc2626;
+    font: inherit;
+    font-size: 0.85rem;
+}
+
+.routine-list .workout-card .delete-routine-button:hover,
+.routine-list .workout-card .routine-exercise-list li button:hover {
+    background-color: #fef2f2;
+}
+
+.routine-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.routine-list .workout-card .routine-actions button {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.routine-list .workout-card .routine-actions .delete-routine-button {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+/* Mobile layout */
+@media (max-width: 600px) {
+    .saved-routines {
+        padding: 1rem;
+    }
+
+    .routine-form {
+        flex-direction: column;
+    }
+
+    .routine-form button {
+        width: 100%;
+    }
+
+    .routine-list {
+        grid-template-columns: 1fr;
+    }
+
+    .routine-list .workout-card {
+        padding: 1rem;
+    }
 }
