@@ -44,6 +44,11 @@ function Workouts() {
             setSavedWorkouts(updatedRoutines);
         } else {
             setExercises([...exercises, newExercise]);
+
+            if (workoutStartTime === null) {
+                setWorkoutStartTime(Date.now());
+                setElapsedSeconds(0);
+            }
         }
 
         setSelectedRoutineId(null);
@@ -304,6 +309,8 @@ function Workouts() {
 
                                             setWorkoutName(routine.name);
                                             setWorkoutCompleted(false);
+                                            setWorkoutStartTime(Date.now());
+                                            setElapsedSeconds(0);
                                             setSelectedRoutineId(null);
                                             setShowExerciseLibrary(false);
                                         }}
