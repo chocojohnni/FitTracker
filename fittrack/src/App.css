@@ -752,3 +752,28 @@
         padding: 1rem;
     }
 }
+
+/* Active Workout Timer */
+.workout-timer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 260px;
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.workout-timer span {
+  color: #6b7280;
+  font-size: 0.075rem;
+}
+
+.workout-timer strong {
+  color: #111827;
+  font-size: 1.25rem;
+  font-variant-numeric: tabular-nums;
+}
