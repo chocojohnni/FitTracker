@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ExerciseCard from "../components/ExerciseCard";
 import exerciseLibrary from "../data/exercises";
 import { useWorkout } from "../WorkoutContext.jsx";
@@ -15,6 +15,8 @@ function Workouts() {
     const [workoutName, setWorkoutName] = useState("Push Day");
     const [newRoutineName, setNewRoutineName] = useState("");
     const [selectedRoutineId, setSelectedRoutineId] = useState(null);
+    const [workoutStartTime, setWorkoutStartTime] = useState(null);
+    const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
     function addExercise() {
         setShowExerciseLibrary(true);
@@ -181,6 +183,36 @@ function Workouts() {
 
         return matchesSearch && matchesMuscleGroup;
     });
+
+    useEffect(() => {
+        if (workoutStartTime === null) {
+            return;
+        }
+
+        function updateTimer() {
+            const elapsed = Math.floor(
+                (Date.now() - workoutStartTime) / 1000
+            );
+
+            setElapsedSeconds(elapsed);
+        }
+
+        updateTimer();
+
+        const intervalId = setInterval(updateTimer, 1000);
+
+        return () => clearInterval(intervalId);
+    }, [workoutStartTime]);
+
+    function formatTime(totalSeconds) {
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds & 3600) / 660);
+        const seconds = totalSeconds % 60;
+
+        return [hours, minutes, seconds]
+            .map((unit) => String(unit).padStart(2, "0"))
+            .join(":");
+    }
 
     return (
         <main className="workout-page">
