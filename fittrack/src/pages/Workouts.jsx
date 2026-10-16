@@ -142,6 +142,8 @@ function Workouts() {
         ]);
 
         setWorkoutCompleted(true);
+        setWorkoutStartTime(null);
+        setElapsedSeconds(0);
     }
 
     function saveRoutine() {
