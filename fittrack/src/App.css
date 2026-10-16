@@ -832,3 +832,13 @@
     border: none;
     font-weight: bold;
 }
+
+.reset-rest-button {
+  padding: 10px 16px;
+  margin-left: 10px;
+  border: 1px solid #555;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
