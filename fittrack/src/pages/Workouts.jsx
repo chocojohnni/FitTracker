@@ -450,6 +450,44 @@ function Workouts() {
                 </div>
             </section>
 
+            <div className="rest-timer">
+                <h2>Rest Timer</h2>
+
+                <div className="rest-timer-display">
+                    {formatTime(restTimeRemaining)}
+                </div>
+
+                <div className="rest-duration-options">
+                    {[30, 60, 90, 120].map((duration) => (
+                    <button
+                        key={duration}
+                        className={
+                            restDuration === duration ? "selected" : ""
+                        }
+                        onClick={() => {
+                            setRestDuration(duration);
+                            setRestTimeRemaining(duration);
+                            setIsResting(false);
+                        }}
+                        disabled={isResting}
+                    >
+                        {duration === 120 ? "2 min" : `${duration} sec`}
+                    </button>
+                ))}
+                </div>
+
+                <button
+                    className="start-rest-button"
+                    onClick={() => {
+                        setRestTimeRemaining(restDuration);
+                        setIsResting(true);
+                    }}
+                    disabled={isResting}
+                >
+                    Start Rest
+                </button>
+            </div>
+
             <section className="exercises">
                 {exercises.map((exercise) => (
                     <ExerciseCard
