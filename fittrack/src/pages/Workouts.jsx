@@ -5,18 +5,30 @@ import { useWorkout } from "../WorkoutContext.jsx";
 
 function Workouts() {
     const { workoutHistory, setWorkoutHistory,
-        savedWorkouts, setSavedWorkouts } = useWorkout();
+        savedWorkouts, setSavedWorkouts,
+        activeWorkout, setActiveWorkout } = useWorkout();
 
-    const [exercises, setExercises] = useState([]);
+    const [exercises, setExercises] = useState(
+        activeWorkout?.exercises ?? []);
+
+    const [workoutName, setWorkoutName] = useState(
+        activeWorkout?.name ?? "");
+
+    const [workoutStartTime, setWorkoutStartTime] = useState(
+        activeWorkout?.startTime ?? null);
+
+    const [elapsedSeconds, setElapsedSeconds] = useState(() => {
+        if (!activeWorkout?.startTime) return 0;
+
+        return Math.floor((Date.now() - activeWorkout.startTime) / 1000);
+    });
+
     const [showExerciseLibrary, setShowExerciseLibrary] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedMuscleGroup, setSelectedMuscleGroup] = useState("All");
     const [workoutCompleted, setWorkoutCompleted] = useState(false);
-    const [workoutName, setWorkoutName] = useState("Push Day");
     const [newRoutineName, setNewRoutineName] = useState("");
     const [selectedRoutineId, setSelectedRoutineId] = useState(null);
-    const [workoutStartTime, setWorkoutStartTime] = useState(null);
-    const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
     function addExercise() {
         setShowExerciseLibrary(true);
@@ -136,12 +148,19 @@ function Workouts() {
             exercises: exercises
         };
 
+        if (exercises.length === 0) {
+            alert("You must have at least one exercise in your active session to finish the workout.");
+            return;
+        }
+
         setWorkoutHistory([
             ...workoutHistory,
             completedWorkout
         ]);
 
         setWorkoutCompleted(true);
+        setActiveWorkout(null);
+        setExercises([]);
         setWorkoutStartTime(null);
         setElapsedSeconds(0);
     }
@@ -211,9 +230,32 @@ function Workouts() {
         return () => clearInterval(intervalId);
     }, [workoutStartTime]);
 
+    useEffect(() => {
+        if (workoutCompleted) {
+            return;
+        }
+
+        if (exercises.length === 0 && workoutStartTime === null) {
+            setActiveWorkout(null);
+            return;
+        }
+
+        setActiveWorkout({
+            name: workoutName,
+            exercises,
+            startTime: workoutStartTime
+        });
+    }, [
+        workoutName,
+        exercises,
+        workoutStartTime,
+        workoutCompleted,
+        setActiveWorkout
+    ]);
+
     function formatTime(totalSeconds) {
         const hours = Math.floor(totalSeconds / 3600);
-        const minutes = Math.floor((totalSeconds & 3600) / 660);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
 
         return [hours, minutes, seconds]
