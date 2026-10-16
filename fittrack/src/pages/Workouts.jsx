@@ -29,6 +29,9 @@ function Workouts() {
     const [workoutCompleted, setWorkoutCompleted] = useState(false);
     const [newRoutineName, setNewRoutineName] = useState("");
     const [selectedRoutineId, setSelectedRoutineId] = useState(null);
+    const [restDuration, setRestDuration] = useState(60);
+    const [restTimeRemaining, setRestTimeRemaining] = useState(60);
+    const [isResting, setIsResting] = useState(false);
 
     function addExercise() {
         setShowExerciseLibrary(true);
@@ -252,6 +255,26 @@ function Workouts() {
         workoutCompleted,
         setActiveWorkout
     ]);
+
+    useEffect(() => {
+        if (!isResting) {
+            return;
+        }
+
+        const intervalId = setInterval(() => {
+            setRestTimeRemaining((previousTime) => {
+                if (previousTime <= 1) {
+                    clearInterval(intervalId);
+                    setIsResting(false);
+                    return 0;
+                }
+
+                return previousTime - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    }, [isResting]);
 
     function formatTime(totalSeconds) {
         const hours = Math.floor(totalSeconds / 3600);
