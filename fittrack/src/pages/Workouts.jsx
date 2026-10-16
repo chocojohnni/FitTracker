@@ -29,8 +29,8 @@ function Workouts() {
     const [workoutCompleted, setWorkoutCompleted] = useState(false);
     const [newRoutineName, setNewRoutineName] = useState("");
     const [selectedRoutineId, setSelectedRoutineId] = useState(null);
-    const [restDuration, setRestDuration] = useState(60);
-    const [restTimeRemaining, setRestTimeRemaining] = useState(60);
+    const [restDuration, setRestDuration] = useState(90);
+    const [restTimeRemaining, setRestTimeRemaining] = useState(90);
     const [isResting, setIsResting] = useState(false);
 
     function addExercise() {
