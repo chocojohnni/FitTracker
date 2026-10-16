@@ -33,6 +33,27 @@ function WorkoutProvider({ children }) {
         }
     });
 
+    const [activeWorkout, setActiveWorkout] = useState(() => {
+        const savedWorkout = localStorage.getItem("activeWorkout");
+
+        if (!savedWorkout) return null;
+
+        try {
+            return JSON.parse(savedWorkout);
+        } catch (error) {
+            console.error("Could not load active workout:", error);
+            return null;
+        }
+    });
+
+    useEffect(() => {
+        if (activeWorkout) {
+            localStorage.setItem("activeWorkout", JSON.stringify(activeWorkout));
+        } else {
+            localStorage.removeItem("activeWorkout");
+        }
+    }, [activeWorkout]);
+
     useEffect(() => {
         localStorage.setItem(
             "workoutHistory",
@@ -53,7 +74,9 @@ function WorkoutProvider({ children }) {
                 workoutHistory,
                 setWorkoutHistory,
                 savedWorkouts,
-                setSavedWorkouts
+                setSavedWorkouts,
+                activeWorkout,
+                setActiveWorkout,
             }}
         >
             {children}
