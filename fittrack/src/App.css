@@ -777,3 +777,58 @@
   font-size: 1.25rem;
   font-variant-numeric: tabular-nums;
 }
+
+/* Rest Timer */
+.rest-timer {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #333;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.rest-timer h2 {
+    margin-top: 0;
+}
+
+.rest-timer-display {
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+    margin: 16px 0;
+}
+
+.rest-duration-options {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.rest-duration-options button,
+.start-rest-button {
+    padding: 10px 16px;
+    border: 1px solid #555;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.rest-duration-options button.selected {
+    background-color: #aa3bff;
+    color: white;
+    border-color: #aa3bff;
+}
+
+.rest-duration-options button:disabled,
+.start-rest-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.start-rest-button {
+    background-color: #aa3bff;
+    color: white;
+    border: none;
+    font-weight: bold;
+}
