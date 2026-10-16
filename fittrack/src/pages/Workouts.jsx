@@ -476,15 +476,36 @@ function Workouts() {
                 ))}
                 </div>
 
+                {!isResting ? (
+                    <button
+                        className="start-rest-button"
+                        onClick={() => {
+                            if (restTimeRemaining === 0) {
+                                setRestTimeRemaining(restDuration);
+                            }
+
+                            setIsResting(true);
+                        }}
+                    >
+                        {restTimeRemaining === 0 ? "Start Rest" : "Resume Rest"}
+                    </button>
+                ) : (
+                    <button
+                        className="start-rest-button"
+                        onClick={() => setIsResting(false)}
+                    >
+                        Pause
+                    </button>
+                )}
+
                 <button
-                    className="start-rest-button"
+                    className="reset-rest-button"
                     onClick={() => {
+                        setIsResting(false);
                         setRestTimeRemaining(restDuration);
-                        setIsResting(true);
                     }}
-                    disabled={isResting}
                 >
-                    Start Rest
+                    Reset
                 </button>
             </div>
 
