@@ -376,6 +376,11 @@ function Workouts() {
                 />
 
                 <p>Customize your workout routine.</p>
+
+                <div className="workout-timer">
+                    <span>Workout Duration</span>
+                    <strong>{formatTime(elapsedSeconds)}</strong>
+                </div>
             </section>
 
             <section className="exercises">
