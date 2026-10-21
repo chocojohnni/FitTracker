@@ -115,6 +115,171 @@
   margin-bottom: 1.5rem;
 }
 
+.workout-header input {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+
+
+/* ===== FitTrack Navigation ===== */
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 16px 28px;
+    margin-bottom: 28px;
+    background: #15151d;
+    border: 1px solid #292936;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
+}
+
+.navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    color: #ffffff;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.navbar-logo {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    background: linear-gradient(135deg, #aa3bff, #7625d9);
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: 800;
+    box-shadow: 0 4px 16px rgba(170, 59, 255, 0.3);
+}
+
+.navbar-brand-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+    line-height: 1.15;
+}
+
+.navbar-brand-text > span {
+    display: inline;
+    color: #b66aff;
+}
+
+.navbar-brand-text small {
+    margin-top: 5px;
+    color: #9292a5;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1.6px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.nav-link {
+    position: relative;
+    padding: 10px 13px;
+    border-radius: 9px;
+    color: #b8b8c8;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.nav-link:hover {
+    color: #ffffff;
+    background: #252532;
+}
+
+.nav-link.active {
+    color: #ffffff;
+    background: rgba(170, 59, 255, 0.16);
+    box-shadow: inset 0 0 0 1px rgba(170, 59, 255, 0.25);
+}
+
+.nav-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    width: 16px;
+    height: 2px;
+    border-radius: 2px;
+    background: #b66aff;
+    transform: translateX(-50%);
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .navbar {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+        padding: 20px;
+    }
+
+    .nav-links {
+        justify-content: flex-start;
+        width: 100%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .navbar {
+        gap: 16px;
+        padding: 16px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+    }
+
+    .navbar-logo {
+        width: 40px;
+        height: 40px;
+        font-size: 23px;
+    }
+
+    .navbar-brand-text {
+        font-size: 19px;
+    }
+
+    .nav-links {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .nav-link {
+        padding: 10px 4px;
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .nav-link.active::after {
+        bottom: 3px;
+    }
+}
 
 /* =========================
    Exercise Card
@@ -841,4 +1006,31 @@
   background: transparent;
   color: inherit;
   cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .rest-timer {
+        padding: 16px;
+        margin: 16px 0;
+    }
+
+    .rest-timer-display {
+        font-size: 2rem;
+    }
+
+    .rest-duration-options {
+        gap: 8px;
+    }
+
+    .rest-duration-options button,
+    .start-rest-button,
+    .reset-rest-button {
+        padding: 10px 12px;
+    }
+
+    input,
+    select,
+    textarea {
+        max-width: 100%;
+    }
 }
