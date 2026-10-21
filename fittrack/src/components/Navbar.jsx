@@ -1,17 +1,42 @@
-import { Link } from "react-router-dom";
+
+import { Link, useLocation } from "react-router-dom";
 
 function Navbar() {
-    return (
-        <nav>
-            <h1>FitTrack</h1>
+    const location = useLocation();
 
-            <div>
-                <Link to="/">Dashboard</Link>
-                <Link to="/workouts">Workouts</Link>
-                <Link to="/exercises">Exercises</Link>
-                <Link to="/progress">Progress</Link>
-                <Link to="/history">History</Link>
-                <Link to="/profile">Profile</Link>
+    const navItems = [
+        { label: "Dashboard", path: "/" },
+        { label: "Workouts", path: "/workouts" },
+        { label: "Exercises", path: "/exercises" },
+        { label: "Progress", path: "/progress" },
+        { label: "History", path: "/history" },
+        { label: "Profile", path: "/profile" },
+    ];
+
+    return (
+        <nav className="navbar">
+            <Link to="/" className="navbar-brand">
+                <span className="navbar-logo">F</span>
+                <span className="navbar-brand-text">
+                    Fit<span>Track</span>
+                    <small>TRAIN WITH PURPOSE</small>
+                </span>
+            </Link>
+
+            <div className="nav-links">
+                {navItems.map((item) => {
+                    const isActive = location.pathname === item.path;
+
+                    return (
+                        <Link
+                            key={item.path}
+                            to={item.path}
+                            className={`nav-link ${isActive ? "active" : ""}`}
+                        >
+                            {item.label}
+                        </Link>
+                    );
+                })}
             </div>
         </nav>
     );
