@@ -115,17 +115,35 @@
   margin-bottom: 1.5rem;
 }
 
-.workout-header input {
+.workout-header .workout-name-input {
+    display: block;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    padding: 10px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 14px;
+    padding: 12px 14px;
+    border: 1px solid #d8d8e3;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #20202a;
+    font: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.workout-header .workout-name-input:focus {
+    outline: none;
+    border-color: #aa3bff;
+    box-shadow: 0 0 0 3px rgba(170, 59, 255, 0.14);
+}
 
+.workout-header .workout-name-input::placeholder {
+    color: #9292a5;
+}
+
+@media (max-width: 600px) {
+    .workout-name-input {
+        font-size: 16px;
+    }
+}
 
 /* ===== FitTrack Navigation ===== */
 
@@ -919,6 +937,12 @@
 }
 
 /* Active Workout Timer */
+.workout-header div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .workout-timer {
   display: flex;
   align-items: center;
@@ -1032,5 +1056,64 @@
     select,
     textarea {
         max-width: 100%;
+    }
+}
+
+
+/* Workout header polish */
+.workout-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.workout-header h2 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+}
+
+.workout-header > p {
+    margin: 0;
+    color: #9292a5;
+    font-size: 0.9rem;
+}
+
+.workout-timer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 16px;
+    border: 1px solid #292936;
+    border-radius: 12px;
+    background: #15151d;
+}
+
+.workout-timer span {
+    color: #b8b8c8;
+    font-size: 0.9rem;
+}
+
+.workout-timer strong {
+    color: #b66aff;
+    font-size: 1.15rem;
+    font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 600px) {
+    .workout-header {
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .workout-header h2 {
+        font-size: 1.4rem;
+    }
+
+    .workout-timer {
+        padding: 12px;
     }
 }
