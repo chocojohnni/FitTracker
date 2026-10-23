@@ -437,7 +437,8 @@ function Workouts() {
             <section className="workout-header">
                 <h2>{workoutName}</h2>
 
-                <input type="text" value={workoutName}
+                <input className="workout-name-input"
+                    type="text" value={workoutName}
                     onChange={(event) => setWorkoutName(event.target.value)}
                     placeholder="Enter workout name"
                 />
